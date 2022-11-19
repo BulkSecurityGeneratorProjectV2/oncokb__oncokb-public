@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -379,7 +379,7 @@ public class CronJobController {
     }
 
     private File createWrappedFile(Instant tokenUsageDateBefore, String fileName) throws IOException {
-        File file = File.createTempFile("token-stats-", ".zip");
+        File file = Files.createTempFile("token-stats-", ".zip").toFile();
         file.deleteOnExit();
         ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
         ZipEntry entry = new ZipEntry(fileName);
